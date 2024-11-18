@@ -17,7 +17,7 @@ public class EmployeeEO {
 	private int id;
 	@NotNull
 	private String name;
-	@Size(min = 5, max = 10, message = "Name must have a max of 10 chracter and not less than 5 characters")
+	@Size(min = 10, max = 50, message = "Name must have a max of 10 chracter and not less than 5 characters")
 	private String address;
 	private String department;
 	
