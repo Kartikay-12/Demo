@@ -25,6 +25,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     
+     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    
     // Runtime dependency for H2 Database
     runtimeOnly 'com.h2database:h2'
     
@@ -40,6 +42,9 @@ dependencies {
     // Testing dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    //Accuator for Health-Check
+   // implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 tasks.named('test') {
