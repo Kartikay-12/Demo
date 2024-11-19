@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.VO.EmployeeVO;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.service.EmpServiceImpl;
+import com.example.demo.service.IEmpService;
 
 import jakarta.validation.Valid;
 
@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 public class EmpController {
 
 	@Autowired
-	private EmpServiceImpl empService;
+	private IEmpService empService;
 
 	private static Logger logger = LoggerFactory.getLogger(EmpController.class);
 

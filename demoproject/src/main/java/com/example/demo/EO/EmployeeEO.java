@@ -21,5 +21,4 @@ public class EmployeeEO {
 	private String address;
 	private String department;
 	
-
 }

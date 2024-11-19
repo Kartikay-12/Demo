@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.BO.EmpBOImpl;
+import com.example.demo.BO.IEmpBO;
+import com.example.demo.EO.EmployeeEO;
+import com.example.demo.MapStruct.EmpMapper;
 import com.example.demo.VO.EmployeeVO;
 import com.example.demo.exception.ResourceNotFoundException;
 
@@ -13,21 +15,29 @@ import com.example.demo.exception.ResourceNotFoundException;
 public class EmpServiceImpl implements IEmpService {
 
 	@Autowired
-	private EmpBOImpl empBo;
+	private IEmpBO empBo;
+	private EmpMapper empMapper;
+
+	public EmpServiceImpl(EmpMapper mapper) {
+		this.empMapper = mapper; // Spring injects the mapper here
+	}
 
 	private static Logger logger = LoggerFactory.getLogger(EmpServiceImpl.class);
 
 	@Override
 	public EmployeeVO createData(EmployeeVO empVo) {
 		logger.info("Service layer- creating new Employee");
-		return empBo.createEmp(empVo);
+		EmployeeEO empEo = empMapper.toEntity(empVo);
+		EmployeeVO savedVo=empMapper.toVo(empBo.createEmp(empEo));
+		return savedVo;
 
 	}
 
 	@Override
 	public EmployeeVO retrieveData(int id) throws ResourceNotFoundException {
 		logger.info("Service layer- retrieving employee detail by id");
-		return empBo.retrieveData(id);
+		EmployeeEO empEo=empBo.retrieveData(id);
+		return empMapper.toVo(empEo);
 	}
 
 }
