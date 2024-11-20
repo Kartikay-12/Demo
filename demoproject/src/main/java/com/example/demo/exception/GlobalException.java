@@ -30,4 +30,6 @@ public class GlobalException {
 	public ResponseEntity<Object> handlerResourceNotFoundEception(ResourceNotFoundException exc) {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exc.getMessage());
 	}
+    
+    
 }

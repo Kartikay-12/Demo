@@ -40,4 +40,12 @@ public class EmpServiceImpl implements IEmpService {
 		return empMapper.toVo(empEo);
 	}
 
+	@Override
+	public String healthCheck() throws Exception{
+		logger.info("Service layer- checking health");
+		return empBo.healthCheck();
+		
+		
+	}
+
 }

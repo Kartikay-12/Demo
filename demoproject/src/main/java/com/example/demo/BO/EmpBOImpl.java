@@ -3,6 +3,7 @@ package com.example.demo.BO;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.EO.EmployeeEO;
@@ -18,7 +19,7 @@ public class EmpBOImpl implements IEmpBO {
 
 	@Override
 	public EmployeeEO createEmp(EmployeeEO empEo) {
-		// logger.info("BO layer- creating new Employee");
+		 //logger.info("BO layer- creating new Employee");
 		return empRepo.save(empEo);
 	}
 
@@ -30,5 +31,18 @@ public class EmpBOImpl implements IEmpBO {
 			return empEo.get();
 		} else
 			throw new ResourceNotFoundException("Record not found");
+	}
+
+	@Override
+	public String healthCheck(){
+		try {
+			empRepo.findById(0);
+		}
+		catch(Exception ex) {
+			if(ex instanceof DataAccessException) {
+				throw new IllegalStateException("HealthCheck failed");
+			}
+		}
+		return null;
 	}
 }

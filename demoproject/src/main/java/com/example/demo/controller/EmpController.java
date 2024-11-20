@@ -43,4 +43,16 @@ public class EmpController {
 
 	}
 
+	@GetMapping("/health-check")
+	public ResponseEntity<String> healthCheck() {
+		
+		try {
+			empService.healthCheck();
+			return ResponseEntity.ok("Health Check is fine");
+		}
+		catch(Exception ex) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+		}
+		
+	}
 }

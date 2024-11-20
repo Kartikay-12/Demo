@@ -10,6 +10,7 @@ public interface IEmpBO {
 	 
 	public EmployeeEO createEmp(EmployeeEO empEo);
 	 EmployeeEO retrieveData(int id) throws ResourceNotFoundException;
+	public String healthCheck() throws Exception;
 	 
 	
 }
