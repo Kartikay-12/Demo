@@ -48,7 +48,7 @@ public class EmpController {
 		
 		try {
 			empService.healthCheck();
-			return ResponseEntity.ok("Health Check is fine");
+			return ResponseEntity.ok("Health Check failed");
 		}
 		catch(Exception ex) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());

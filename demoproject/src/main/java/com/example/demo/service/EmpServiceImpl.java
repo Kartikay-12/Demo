@@ -41,9 +41,9 @@ public class EmpServiceImpl implements IEmpService {
 	}
 
 	@Override
-	public String healthCheck() throws Exception{
+	public void healthCheck() throws Exception{
 		logger.info("Service layer- checking health");
-		return empBo.healthCheck();
+		 empBo.healthCheck();
 		
 		
 	}

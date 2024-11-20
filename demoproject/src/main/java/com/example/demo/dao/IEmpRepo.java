@@ -4,6 +4,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.EO.EmployeeEO;
 
+
 public interface IEmpRepo extends JpaRepository<EmployeeEO, Integer> {
+
+	
+
+	void getById(double d);
+
+
+
+	
 
 }

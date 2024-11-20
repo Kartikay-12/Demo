@@ -3,7 +3,6 @@ package com.example.demo.BO;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.EO.EmployeeEO;
@@ -34,15 +33,19 @@ public class EmpBOImpl implements IEmpBO {
 	}
 
 	@Override
-	public String healthCheck(){
+	public void healthCheck() throws Exception{
 		try {
-			empRepo.findById(0);
+			empRepo.getById(0.0);
 		}
-		catch(Exception ex) {
-			if(ex instanceof DataAccessException) {
-				throw new IllegalStateException("HealthCheck failed");
-			}
+		catch (ArithmeticException e) {
+	       
+	        throw new ArithmeticException("HealthCheck good" );
+	    } catch (Exception e) {
+	        
+	        throw new Exception("HealthCheck good");
+	    }
+			
 		}
-		return null;
+		
+		
 	}
-}
