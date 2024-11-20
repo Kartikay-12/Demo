@@ -43,8 +43,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     
-    //Accuator for Health-Check
-   // implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    
 }
 
 tasks.named('test') {
@@ -53,4 +52,5 @@ tasks.named('test') {
 
 tasks.withType(JavaCompile) {
     options.annotationProcessorPath = configurations.annotationProcessor
+    
 }
