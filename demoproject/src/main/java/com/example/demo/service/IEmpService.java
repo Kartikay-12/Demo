@@ -9,6 +9,6 @@ public interface IEmpService {
 
 	EmployeeVO createData(EmployeeVO empVo);
 
-	String healthCheck() throws Exception;
+	void healthCheck() throws Exception;
 
 }
