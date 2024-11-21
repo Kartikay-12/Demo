@@ -5,7 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.EO.EmployeeEO;
+import com.example.demo.DTO.EmployeeDto;
+import com.example.demo.EO.IEmployeeEO;
 import com.example.demo.dao.IEmpRepo;
 import com.example.demo.exception.ResourceNotFoundException;
 
@@ -14,20 +15,24 @@ public class EmpBOImpl implements IEmpBO {
 
 	@Autowired
 	private IEmpRepo empRepo;
+	private IEmployeeEO empEO;
 	
-
-	@Override
-	public EmployeeEO createEmp(EmployeeEO empEo) {
-		 //logger.info("BO layer- creating new Employee");
-		return empRepo.save(empEo);
+	public EmpBOImpl(IEmployeeEO empEO) {
+		this.empEO=empEO;
 	}
 
 	@Override
-	public EmployeeEO retrieveData(int id) throws ResourceNotFoundException {
-		Optional<EmployeeEO> empEo = empRepo.findById(id);
-		if (empEo.isPresent()) {
+	public EmployeeDto createEmp(EmployeeDto empDto) {
+		 //logger.info("BO layer- creating new Employee");
+		 return empEO.createEmp(empRepo.save(empDto));
+	}
+
+	@Override
+	public EmployeeDto retrieveData(int id) throws ResourceNotFoundException {
+		Optional<EmployeeDto> empDto = empRepo.findById(id);
+		if (empDto.isPresent()) {
 			// logger.info("Retrieving Employee with Id :", id);
-			return empEo.get();
+			return empEO.retrieveData(empDto.get());
 		} else
 			throw new ResourceNotFoundException("Record not found");
 	}
