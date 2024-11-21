@@ -1,24 +1,24 @@
 package com.example.demo.EO;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
+import org.springframework.stereotype.Component;
 
-@Entity
-@Data
-public class EmployeeEO {
+import com.example.demo.DTO.EmployeeDto;
+
+@Component
+public class EmployeeEO implements IEmployeeEO {
+
+	@Override
+	public EmployeeDto createEmp(EmployeeDto save) {
+	//logger.info();
+		return save;
+	}
+
+	@Override
+	public EmployeeDto retrieveData(EmployeeDto employeeDto) {
+		
+		return employeeDto;
+	}
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@NotNull
-	private String name;
-	@Size(min = 10, max = 50, message = "Name must have a max of 10 chracter and not less than 5 characters")
-	private String address;
-	private String department;
+	
 	
 }

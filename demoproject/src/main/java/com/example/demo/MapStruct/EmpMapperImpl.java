@@ -1,9 +1,11 @@
 package com.example.demo.MapStruct;
 
-import com.example.demo.EO.EmployeeEO;
-import com.example.demo.VO.EmployeeVO;
 import javax.annotation.processing.Generated;
+
 import org.springframework.stereotype.Component;
+
+import com.example.demo.DTO.EmployeeDto;
+import com.example.demo.VO.EmployeeVO;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
@@ -14,33 +16,33 @@ import org.springframework.stereotype.Component;
 public class EmpMapperImpl implements EmpMapper {
 
     @Override
-    public EmployeeEO toEntity(EmployeeVO empVo) {
+    public EmployeeDto toDto(EmployeeVO empVo) {
         if ( empVo == null ) {
             return null;
         }
 
-        EmployeeEO employeeEO = new EmployeeEO();
+        EmployeeDto employeeDto = new EmployeeDto();
 
-        employeeEO.setId( empVo.getId() );
-        employeeEO.setName( empVo.getName() );
-        employeeEO.setAddress( empVo.getAddress() );
-        employeeEO.setDepartment( empVo.getDepartment() );
+        employeeDto.setId( empVo.getId() );
+        employeeDto.setName( empVo.getName() );
+        employeeDto.setAddress( empVo.getAddress() );
+        employeeDto.setDepartment( empVo.getDepartment() );
 
-        return employeeEO;
+        return employeeDto;
     }
 
     @Override
-    public EmployeeVO toVo(EmployeeEO empEO) {
-        if ( empEO == null ) {
+    public EmployeeVO toVo(EmployeeDto empDto) {
+        if ( empDto == null ) {
             return null;
         }
 
         EmployeeVO employeeVO = new EmployeeVO();
 
-        employeeVO.setId( empEO.getId() );
-        employeeVO.setName( empEO.getName() );
-        employeeVO.setAddress( empEO.getAddress() );
-        employeeVO.setDepartment( empEO.getDepartment() );
+        employeeVO.setId( empDto.getId() );
+        employeeVO.setName( empDto.getName() );
+        employeeVO.setAddress( empDto.getAddress() );
+        employeeVO.setDepartment( empDto.getDepartment() );
 
         return employeeVO;
     }

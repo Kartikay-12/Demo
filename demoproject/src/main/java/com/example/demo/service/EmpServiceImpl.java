@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.BO.IEmpBO;
+import com.example.demo.DTO.EmployeeDto;
 import com.example.demo.EO.EmployeeEO;
 import com.example.demo.MapStruct.EmpMapper;
 import com.example.demo.VO.EmployeeVO;
@@ -27,8 +28,8 @@ public class EmpServiceImpl implements IEmpService {
 	@Override
 	public EmployeeVO createData(EmployeeVO empVo) {
 		logger.info("Service layer- creating new Employee");
-		EmployeeEO empEo = empMapper.toEntity(empVo);
-		EmployeeVO savedVo=empMapper.toVo(empBo.createEmp(empEo));
+		EmployeeDto empDto = empMapper.toDto(empVo);
+		EmployeeVO savedVo=empMapper.toVo(empBo.createEmp(empDto));
 		return savedVo;
 
 	}
@@ -36,8 +37,8 @@ public class EmpServiceImpl implements IEmpService {
 	@Override
 	public EmployeeVO retrieveData(int id) throws ResourceNotFoundException {
 		logger.info("Service layer- retrieving employee detail by id");
-		EmployeeEO empEo=empBo.retrieveData(id);
-		return empMapper.toVo(empEo);
+		EmployeeDto empDto=empBo.retrieveData(id);
+		return empMapper.toVo(empDto);
 	}
 
 	@Override
