@@ -5,12 +5,10 @@ import static org.mockito.Mockito.when;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.demo.BO.EmpBOImpl;
@@ -22,10 +20,6 @@ import com.example.demo.exception.ResourceNotFoundException;
 @ExtendWith(MockitoExtension.class)
 class DemoprojectApplicationTests {
 
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
 
 	@InjectMocks
 	private EmpBOImpl empBO;
@@ -34,15 +28,14 @@ class DemoprojectApplicationTests {
 	private IEmpRepo empRepo;
 
 	@Mock
-	private IEmployeeEO empEo;
+	private IEmployeeEO empEO;
 
 	@Test
 	public void retrieveDataTest() throws ResourceNotFoundException {
 
 		EmployeeDto e1 = new EmployeeDto(1, "Abcd", "Efgh", "Ijkl");
 
-		when(empRepo.findById(1)).thenReturn(Optional.of(e1));
-		when(empEo.retrieveData(e1)).thenReturn(e1);
+		when(empEO.retrieveData(1)).thenReturn(e1);
 
 		EmployeeDto e2 = empBO.retrieveData(1);
 
@@ -54,8 +47,7 @@ class DemoprojectApplicationTests {
 
 		EmployeeDto e1 = new EmployeeDto(1, "Abcd", "Efgh", "Ijkl");
 
-		when(empRepo.save(e1)).thenReturn(e1);
-		when(empEo.createEmp(e1)).thenReturn(e1);
+		when(empEO.createEmp(e1)).thenReturn(e1);
 
 		EmployeeDto e2 = empBO.createEmp(e1);
 

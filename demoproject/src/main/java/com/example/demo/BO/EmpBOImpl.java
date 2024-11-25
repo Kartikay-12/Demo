@@ -1,7 +1,5 @@
 package com.example.demo.BO;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,17 +23,12 @@ public class EmpBOImpl implements IEmpBO {
 	@Override
 	public EmployeeDto createEmp(EmployeeDto empDto) {
 		 //logger.info("BO layer- creating new Employee");
-		 return empEO.createEmp(empRepo.save(empDto));
+		 return empEO.createEmp(empDto);
 	}
 
 	@Override
 	public EmployeeDto retrieveData(int id) throws ResourceNotFoundException {
-		Optional<EmployeeDto> empDto = empRepo.findById(id);
-		if (empDto.isPresent()) {
-			// logger.info("Retrieving Employee with Id :", id);
-			return empEO.retrieveData(empDto.get());
-		} else
-			throw new ResourceNotFoundException("Record not found");
+		return empEO.retrieveData(id);
 	}
 
 	@Override
