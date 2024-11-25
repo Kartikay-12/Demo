@@ -15,6 +15,7 @@ public class EmpBOImpl implements IEmpBO {
 
 	@Autowired
 	private IEmpRepo empRepo;
+	@Autowired
 	private IEmployeeEO empEO;
 	
 	public EmpBOImpl(IEmployeeEO empEO) {
