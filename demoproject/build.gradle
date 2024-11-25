@@ -43,6 +43,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     
+    // JUnit 5 (Jupiter) for unit tests
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    
+    
+    // Mockito for mocking dependencies
+   // testImplementation 'org.mockito:mockito-core:4.8.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' 
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
     
 }
 

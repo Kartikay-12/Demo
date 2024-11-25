@@ -1,13 +1,66 @@
 package com.example.demo;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
+import java.util.Optional;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.example.demo.BO.EmpBOImpl;
+import com.example.demo.DTO.EmployeeDto;
+import com.example.demo.EO.IEmployeeEO;
+import com.example.demo.dao.IEmpRepo;
+import com.example.demo.exception.ResourceNotFoundException;
+
+@ExtendWith(MockitoExtension.class)
 class DemoprojectApplicationTests {
 
+	@BeforeEach
+	public void setUp() {
+		MockitoAnnotations.openMocks(this);
+	}
+
+	@InjectMocks
+	private EmpBOImpl empBO;
+
+	@Mock
+	private IEmpRepo empRepo;
+
+	@Mock
+	private IEmployeeEO empEo;
+
 	@Test
-	void contextLoads() {
+	public void retrieveDataTest() throws ResourceNotFoundException {
+
+		EmployeeDto e1 = new EmployeeDto(1, "Abcd", "Efgh", "Ijkl");
+
+		when(empRepo.findById(1)).thenReturn(Optional.of(e1));
+		when(empEo.retrieveData(e1)).thenReturn(e1);
+
+		EmployeeDto e2 = empBO.retrieveData(1);
+
+		Assertions.assertEquals(e1, e2);
+	}
+
+	@Test
+	public void testCreateEmp() {
+
+		EmployeeDto e1 = new EmployeeDto(1, "Abcd", "Efgh", "Ijkl");
+
+		when(empRepo.save(e1)).thenReturn(e1);
+		when(empEo.createEmp(e1)).thenReturn(e1);
+
+		EmployeeDto e2 = empBO.createEmp(e1);
+
+		Assertions.assertEquals(e1, e2);
+
 	}
 
 }
