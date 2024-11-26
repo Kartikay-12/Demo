@@ -27,11 +27,11 @@ public class EmpControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-	private ObjectMapper objectMapper; // ObjectMapper for serializing to JSON
+	private ObjectMapper objectMapper;
 
 	@BeforeEach
 	public void setup() {
-		objectMapper = new ObjectMapper(); // Initialize the ObjectMapper
+		objectMapper = new ObjectMapper();
 	}
 
 	@Test
@@ -39,16 +39,11 @@ public class EmpControllerTest {
 
 		EmployeeVO empVo = new EmployeeVO(1, "Abcd", "Efghijklmn oper", "Ijkl");
 
-		// Mocking the service layer to return the employee object when the createData
-		// method is called
 		when(empService.createData(empVo)).thenReturn(empVo);
 		String jsonRequest = objectMapper.writeValueAsString(empVo);
 
-		mockMvc.perform(post("/api/create")
-	            .contentType(MediaType.APPLICATION_JSON)
-	            .content(jsonRequest))  // Pass the JSON payload
-	            .andExpect(status().isCreated())
-	            .andExpect(content().json(jsonRequest));
+		mockMvc.perform(post("/api/create").contentType(MediaType.APPLICATION_JSON).content(jsonRequest))
+				.andExpect(status().isCreated()).andExpect(content().json(jsonRequest));
 	}
 
 	@Test
