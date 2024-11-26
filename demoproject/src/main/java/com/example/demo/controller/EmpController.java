@@ -37,7 +37,7 @@ public class EmpController {
 	}
 
 	@GetMapping("/retrieve/{id}")
-	public ResponseEntity<EmployeeVO> retrieveData(@PathVariable("id") int id) throws ResourceNotFoundException{
+	public ResponseEntity<EmployeeVO> retrieveData(@PathVariable("id") int id) throws ResourceNotFoundException {
 		logger.info("Received request to fetach Employee by Id");
 		return ResponseEntity.ok(empService.retrieveData(id));
 
@@ -45,14 +45,13 @@ public class EmpController {
 
 	@GetMapping("/health-check")
 	public ResponseEntity<String> healthCheck() {
-		
+
 		try {
 			empService.healthCheck();
 			return ResponseEntity.ok("Health Check failed");
-		}
-		catch(Exception ex) {
+		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}
-		
+
 	}
 }
