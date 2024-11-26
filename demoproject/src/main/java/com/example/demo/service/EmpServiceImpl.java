@@ -20,7 +20,7 @@ public class EmpServiceImpl implements IEmpService {
 	private EmpMapper empMapper;
 
 	public EmpServiceImpl(EmpMapper mapper) {
-		this.empMapper = mapper; // Spring injects the mapper here
+		this.empMapper = mapper; 
 	}
 
 	private static Logger logger = LoggerFactory.getLogger(EmpServiceImpl.class);
@@ -29,7 +29,7 @@ public class EmpServiceImpl implements IEmpService {
 	public EmployeeVO createData(EmployeeVO empVo) {
 		logger.info("Service layer- creating new Employee");
 		EmployeeDto empDto = empMapper.toDto(empVo);
-		EmployeeVO savedVo=empMapper.toVo(empBo.createEmp(empDto));
+		EmployeeVO savedVo = empMapper.toVo(empBo.createEmp(empDto));
 		return savedVo;
 
 	}
@@ -37,16 +37,15 @@ public class EmpServiceImpl implements IEmpService {
 	@Override
 	public EmployeeVO retrieveData(int id) throws ResourceNotFoundException {
 		logger.info("Service layer- retrieving employee detail by id");
-		EmployeeDto empDto=empBo.retrieveData(id);
+		EmployeeDto empDto = empBo.retrieveData(id);
 		return empMapper.toVo(empDto);
 	}
 
 	@Override
-	public void healthCheck() throws Exception{
+	public void healthCheck() throws Exception {
 		logger.info("Service layer- checking health");
-		 empBo.healthCheck();
-		
-		
+		empBo.healthCheck();
+
 	}
 
 }
