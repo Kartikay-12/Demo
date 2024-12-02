@@ -26,7 +26,6 @@ public class EmpControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-
 	private ObjectMapper objectMapper;
 
 	@BeforeEach
@@ -37,7 +36,11 @@ public class EmpControllerTest {
 	@Test
 	public void testCreateData() throws Exception {
 
-		EmployeeVO empVo = new EmployeeVO(1, "Abcd", "Efghijklmn oper", "Ijkl");
+		EmployeeVO empVo = new EmployeeVO();
+		empVo.setId(1);
+		empVo.setName("abcd");
+		empVo.setAddress("123 abcd jhkdj");
+		empVo.setDepartment("IT");
 
 		when(empService.createData(empVo)).thenReturn(empVo);
 		String jsonRequest = objectMapper.writeValueAsString(empVo);
@@ -49,7 +52,11 @@ public class EmpControllerTest {
 	@Test
 	public void testRetrieveData() throws Exception {
 
-		EmployeeVO empVo = new EmployeeVO(1, "Abcdef", "Efghij", "Ijklmn");
+		EmployeeVO empVo = new EmployeeVO();
+		empVo.setId(1);
+		empVo.setName("Abcd");
+		empVo.setAddress("123 Efghijkln");
+		empVo.setDepartment("Ijklms");
 
 		when(empService.retrieveData(1)).thenReturn(empVo);
 
