@@ -31,7 +31,11 @@ public class EmployeeBoTest {
 	@Test
 	public void retrieveDataTest() throws ResourceNotFoundException {
 
-		EmployeeDto e1 = new EmployeeDto(1, "Abcd", "Efgh", "Ijkl");
+		EmployeeDto e1 = new EmployeeDto();
+		e1.setId(1);
+		e1.setName("Abcd");
+		e1.setAddress("Efghijklmn");
+		e1.setDepartment("Ijklms");
 
 		when(empEO.retrieveData(1)).thenReturn(e1);
 
@@ -43,8 +47,11 @@ public class EmployeeBoTest {
 	@Test
 	public void testCreateEmp() {
 
-		EmployeeDto e1 = new EmployeeDto(1, "Abcd", "Efgh", "Ijkl");
-
+		EmployeeDto e1 = new EmployeeDto();
+		e1.setId(1);
+		e1.setName("Abcd");
+		e1.setAddress("Efghijklmn");
+		e1.setDepartment("Ijklms");
 		when(empEO.createEmp(e1)).thenReturn(e1);
 
 		EmployeeDto e2 = empBO.createEmp(e1);
