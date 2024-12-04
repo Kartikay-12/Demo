@@ -17,18 +17,17 @@ public class StepDefinitions {
 
 	@Autowired
 	private IEmpService empService;
-
-	EmployeeVO empVO = new EmployeeVO();
-
+	
+	EmployeeVO empVO=new EmployeeVO();
 	private EmployeeVO response;
 
-	@Given("employee details")
-	public void givenIHaveANewEmployee() {
-
-		empVO.setId(1);
-		empVO.setName("Abcd");
-		empVO.setAddress("123 Efghijklmn");
-		empVO.setDepartment("Ijklms");
+	@Given("employee details with Id {int} Name {string} Address {string} Department {string}")
+	public void givenIHaveANewEmployee(int id, String name, String address, String department) {
+		
+		empVO.setId(id);
+		empVO.setName(name);
+		empVO.setAddress(address);
+		empVO.setDepartment(department);
 	}
 
 	@When("I create the employee")
@@ -44,11 +43,7 @@ public class StepDefinitions {
 
 	@Given("an employee with id {int} exists")
 	public void givenAnEmployeeWithIdExists(int id) {
-
-		empVO.setId(1);
-		empVO.setName("Abcd");
-		empVO.setAddress("123 Efghijklmn");
-		empVO.setDepartment("Ijklms");
+		
 	}
 
 	@When("I retrieve the employee with id {int}")
@@ -59,6 +54,6 @@ public class StepDefinitions {
 	@Then("I should get the employee details")
 	public void thenIShouldGetTheEmployeeDetails() {
 
-		Assertions.assertEquals("Abcd", response.getName());
+		Assertions.assertEquals("Kartikay", response.getName());
 	}
 }
