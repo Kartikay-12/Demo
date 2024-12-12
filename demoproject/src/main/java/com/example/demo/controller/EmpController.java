@@ -38,7 +38,7 @@ public class EmpController {
 
 	@GetMapping("/retrieve/{id}")
 	public ResponseEntity<EmployeeVO> retrieveData(@PathVariable("id") int id) throws ResourceNotFoundException {
-		logger.info("Received request to fetach Employee by Id");
+		logger.info("Received request to fetch Employee by Id");
 		return ResponseEntity.ok(empService.retrieveData(id));
 
 	}
@@ -54,4 +54,7 @@ public class EmpController {
 		}
 
 	}
+	
+	
+	 
 }

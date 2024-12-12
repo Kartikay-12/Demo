@@ -21,10 +21,6 @@ public class EmpServiceImpl implements IEmpService {
 	@Autowired
 	private EmpMapper empMapper;
 
-//	public EmpServiceImpl(EmpMapper mapper) {
-//		this.empMapper = mapper; 
-//	}
-
 	private static Logger logger = LoggerFactory.getLogger(EmpServiceImpl.class);
 	private static final String service = "empService";
 
@@ -32,13 +28,21 @@ public class EmpServiceImpl implements IEmpService {
 	@Override
 	public EmployeeVO createData(EmployeeVO empVo) {
 		logger.info("Service layer- creating new Employee");
-		EmployeeDto empDto = empMapper.toDto(empVo);
-		EmployeeVO savedVo = empMapper.toVo(empBo.createEmp(empDto));
-		return savedVo;
-
+		if (empVo.getDepartment().isEmpty()) {
+			logger.error("Failure occured: one of the feild is empty");
+			throw new IllegalArgumentException("Department name is empty");
+		}
+		try {
+			EmployeeDto empDto = empMapper.toDto(empVo);
+			EmployeeVO savedVo = empMapper.toVo(empBo.createEmp(empDto));
+			return savedVo;
+		} catch (Exception e) {
+			logger.error("Error occurred while creating employee: {}", e.getMessage());
+		}
+		return empVo;
 	}
 
-	@CircuitBreaker(name = service, fallbackMethod = "retrieveFallback")
+	
 	@Override
 	public EmployeeVO retrieveData(int id) throws ResourceNotFoundException {
 		logger.info("Service layer- retrieving employee detail by id");
@@ -52,14 +56,9 @@ public class EmpServiceImpl implements IEmpService {
 		empBo.healthCheck();
 	}
 
-	public String createFallback(Exception e) {
-
-		return "Fallback: Unable to create Employee ";
-	}
-
-	public String retrieveFallback(int id, Throwable t) {
-
-		return "Fallback: Unable to retrieve Employee ";
+	public String createFallback(Throwable e) {
+		logger.error("Fallback triggered due to: {}", e.getMessage());
+		return "Fallback: Unable to create Employee";
 	}
 
 }

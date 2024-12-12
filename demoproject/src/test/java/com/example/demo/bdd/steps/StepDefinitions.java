@@ -15,8 +15,6 @@ import io.cucumber.java.en.When;
 @SpringBootTest
 public class StepDefinitions {
 
-//	@Autowired
-//	private IEmpService empService;
 	private String BASE_URL = "http://localhost:8080/api";
 	private String create = "/create";
 	private String retrieve = "/retrieve/";
@@ -26,7 +24,6 @@ public class StepDefinitions {
 	private EmployeeVO response;
 
 	public StepDefinitions() {
-		// Initialize RestTemplate
 		this.restTemplate = new RestTemplate();
 	}
 
@@ -44,7 +41,7 @@ public class StepDefinitions {
 		ResponseEntity<EmployeeVO> responseEntity = restTemplate.postForEntity(BASE_URL + create, empVO,
 				EmployeeVO.class);
 		response = responseEntity.getBody();
-//		response = empService.createData(empVO);
+
 	}
 
 	@Then("the employee should be created")
