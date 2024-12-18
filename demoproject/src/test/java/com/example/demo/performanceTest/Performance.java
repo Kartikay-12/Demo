@@ -18,22 +18,22 @@ public class Performance extends Simulation {
 	HttpProtocolBuilder httpProtocol = http.baseUrl("http://localhost:8080").acceptHeader("application/json")
 			.contentTypeHeader("application/json");
 
-	String jsonPayload = "{" + "\"id\": 1," + "\"name\": \"Ayush\"," + "\"address\": \"1234 Street City\","
+	String jsonPayload = "{" 
+			+ "\"id\": 1," 
+			+ "\"name\": \"Ayush\"," 
+			+ "\"address\": \"1234 Street City\","
 			+ "\"department\": \"IT\"" + "}";
 
 	// Define the POST request for creating an employee
-	HttpRequestActionBuilder createEmployeeRequest = http("Create Employee").post("/create") // The POST request to the
-																								// /create endpoint
-			.body(StringBody(jsonPayload)).asJson().check(status().is(201)); // Expecting HTTP 201 Created as response
+	HttpRequestActionBuilder createEmployeeRequest = http("Create Employee").post("/api/create")
+			.body(StringBody(jsonPayload)).asJson().check(status().is(201));
 
 	// Define the scenario: Send requests to create an employee
-	ScenarioBuilder scn = scenario("Employee Create Load Test").exec(createEmployeeRequest); // No pause between
-																								// requests
+	ScenarioBuilder scn = scenario("Employee Create Load Test").exec(createEmployeeRequest);
 
-	// Set up the load test with user injection
 	{
 		setUp(scn.injectOpen(atOnceUsers(5), // Inject 5 users at once (concurrent requests)
-				rampUsers(10).during(1) // Ramp up to 10 users over 5 seconds
+				rampUsers(10).during(10) // Ramp up to 10 users over 10 seconds
 		).protocols(httpProtocol));
 	}
 }

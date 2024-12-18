@@ -2,6 +2,10 @@ package com.example.demo.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +28,10 @@ public class EmpController {
 
 	@Autowired
 	private IEmpService empService;
+	@Autowired
+	private JobLauncher jobLauncher;
+	@Autowired
+	private Job job;
 
 	private static Logger logger = LoggerFactory.getLogger(EmpController.class);
 
@@ -53,8 +61,22 @@ public class EmpController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}
 
+	}	
+
+	@GetMapping("/run-batch-job")
+	public String runBatchJob() {
+		try {
+			logger.info("Starting batch job...");
+			//we are adding time stamp to job paraameter o let the system know its a new job so it does not skip it 
+			JobParameters jobParameters = new JobParametersBuilder()
+	                .addLong("time", System.currentTimeMillis())  
+	                .toJobParameters();
+			jobLauncher.run(job,jobParameters);
+			return "Batch job executed successfully!";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Error occurred while executing batch job.";
+		}
 	}
-	
-	
-	 
+
 }
